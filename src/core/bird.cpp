@@ -1,6 +1,5 @@
 
 
-
 #include "../include/bird.h"
 
 Bird::Bird() {
@@ -30,15 +29,15 @@ Bird::Bird() {
 
 void Bird::avoidEdges() {
 
-    if (pos.x > WINDOW_WIDTH - MARGIN) {
+    if (pos.x > MAIN_END_X - BORDER_MARGIN) {
         velocity.x -= TURN_FACTOR;
 
-    } else if (pos.x < MARGIN) {
+    } else if (pos.x < MAIN_START_X + BORDER_MARGIN) {
         velocity.x += TURN_FACTOR;
     } 
-    if (pos.y > WINDOW_HEIGHT - MARGIN) {
+    if (pos.y > MAIN_END_Y - BORDER_MARGIN) {
         velocity.y -= TURN_FACTOR;
-    } else if (pos.y < MARGIN) {
+    } else if (pos.y < MAIN_START_Y + BORDER_MARGIN) {
         velocity.y += TURN_FACTOR;
     }
 
@@ -46,9 +45,14 @@ void Bird::avoidEdges() {
 void Bird::move() {
 
 
+    // Avoid Predator
+    velocity.x += predatorCloseness.x * PREDATOR_AVOIDANCE;
+    velocity.y += predatorCloseness.y * PREDATOR_AVOIDANCE;
+
     // Closeness
     velocity.x += closeness.x * AVOID_FACTOR;
     velocity.y += closeness.y * AVOID_FACTOR;
+
 
     // Avg Velocity Addition And Average Position
     if (numNeighbours > 0) {
@@ -67,6 +71,7 @@ void Bird::move() {
         velocity.y += (avgPos.y - pos.y)*CENTERING_FACTOR;
     }
 
+
     avoidEdges();
 
     // Max and min speeds
@@ -84,20 +89,9 @@ void Bird::move() {
     body.setPosition(pos);
 
     // Update Rotation
-    float angle = std::tanh(std::abs(velocity.y) / std::abs(velocity.x));
-    if (velocity.x > 0 && velocity.y < 0) {
-        // Quad 1
-        body.setRotation(sf::Angle(sf::radians(PI - angle)));
-    } else if (velocity.x < 0 && velocity.y < 0) {
-        // Quad 2
-        body.setRotation(sf::Angle(sf::radians(1.5*PI + angle)));
-    } else if (velocity.x < 0 && velocity.y > 0) {
-        // Quad 3
-        body.setRotation(sf::Angle(sf::radians(1.5*PI - angle)));
-    } else {
-        // Quad 4
-        body.setRotation(sf::Angle(sf::radians(0.5*PI + angle)));
-    }
+    float angle = std::atan2(velocity.y, velocity.x) + 0.5*PI;
+    body.setRotation(sf::radians(angle));
+
 }
 
 void Bird::draw(sf::RenderWindow& target) const {

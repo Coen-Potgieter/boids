@@ -16,8 +16,11 @@ FetchContent_MakeAvailable(SFML)
 # Set source files
 set(SOURCES
     src/main.cpp
+    src/core/tunableparams.cpp
     src/core/bird.cpp
     src/core/flock.cpp
+    src/core/slider.cpp
+    src/core/ui.cpp
 )
 
 # Set headers files
@@ -25,6 +28,9 @@ set(HEADERS
     src/include/constants.h
     src/include/bird.h
     src/include/flock.h
+    src/include/slider.h
+    src/include/tunableparams.h
+    src/include/ui.h
 )
 
 add_executable(main ${SOURCES} ${HEADERS})

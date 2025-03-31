@@ -7,7 +7,9 @@
 #include <stdint.h>
 #include <SFML/Graphics.hpp>
 #include "constants.h"
+#include "tunableparams.h"
 #include <cmath>
+
 
 class Bird {
 
@@ -22,6 +24,7 @@ public:
     sf::Vector2f closeness; // Measures how close other birds are to it
     sf::Vector2f avgVelocity; 
     sf::Vector2f avgPos; 
+    sf::Vector2f predatorCloseness;
     uint8_t numNeighbours; 
 
     Bird();

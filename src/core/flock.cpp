@@ -5,7 +5,7 @@
 
 #include "../include/flock.h"
 
-Flock::Flock(uint8_t numBirds) {
+Flock::Flock(uint16_t numBirds) {
 
     for (int i = 0; i < numBirds; i++) {
         birds.push_back(Bird());
@@ -15,10 +15,11 @@ Flock::Flock(uint8_t numBirds) {
 }
 
 
-void Flock::draw(sf::RenderWindow& target) {
+void Flock::draw(sf::RenderWindow& target, sf::Vector2i mousPos) {
 
     for (int i = 0; i < birds.size(); i++) {
          
+
         // Reset Closeness
         birds[i].closeness = { 0.f, 0.f };
 
@@ -28,6 +29,9 @@ void Flock::draw(sf::RenderWindow& target) {
 
         // Reset avgPosition 
         birds[i].avgPos = { 0.f, 0.f };
+
+        // Reset Predator Closeness
+        birds[i].predatorCloseness = { 0.f, 0.f };
 
         sf::Vector2f birdPos = birds[i].pos;
         // check distance with each boid
@@ -47,6 +51,16 @@ void Flock::draw(sf::RenderWindow& target) {
 
                 birds[i].avgVelocity += birds[j].velocity;
                 birds[i].numNeighbours += 1;
+            }
+
+            if (mousPos.x > MAIN_END_X) continue;
+            if (mousPos.x < MAIN_START_X) continue;
+            if (mousPos.y > MAIN_END_Y) continue;
+            if (mousPos.y < MAIN_START_Y) continue;
+
+            sf::Vector2f distToPredator = birdPos - static_cast<sf::Vector2f>(mousPos);
+            if (std::abs(distToPredator.x) < PREDATOR_RANGE && std::abs(distToPredator.y) < PREDATOR_RANGE) {
+                birds[i].predatorCloseness += birdPos - static_cast<sf::Vector2f>(mousPos);
             }
 
         }

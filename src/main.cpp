@@ -1,8 +1,11 @@
 #include <SFML/Graphics.hpp>
 
 #include "./include/constants.h"
-#include "./include/bird.h"
 #include "./include/flock.h"
+#include "./include/slider.h"
+#include "./include/tunableparams.h"
+#include "./include/ui.h"
+
 int main()
 {
     // For smooth edges on shapes
@@ -11,11 +14,13 @@ int main()
 
     sf::RenderWindow window(sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), "My Window", sf::Style::Default, sf::State::Windowed, settings);
 
-    Flock flock(100);
-
     // Fixes visual tearing casued by out of sync window with screen
     window.setVerticalSyncEnabled(true);
     window.setFramerateLimit(60);
+
+    Flock flock(750);
+    UI ui;
+
 
 
     while (window.isOpen())
@@ -30,8 +35,11 @@ int main()
 
         
 
+        sf::Vector2i mousePos = sf::Mouse::getPosition(window);
         window.clear();
-        flock.draw(window);
+        flock.draw(window, mousePos);
+        
+        ui.draw(window, mousePos);
         window.display();
     }
 }

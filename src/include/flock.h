@@ -16,10 +16,10 @@ private:
     std::vector<Bird> birds;
 
 public:
-    Flock(uint8_t numBirds);
+    Flock(uint16_t numBirds);
     ~Flock() = default;
 
-    void draw(sf::RenderWindow& target);
+    void draw(sf::RenderWindow& target, sf::Vector2i mousePos);
 
 };
 
