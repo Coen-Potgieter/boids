@@ -6,6 +6,8 @@ This project is an implementation of an artificial life program: The Boids algor
 
 ## Demo 📸
 
+*Mind The Artifacts From The Sliders* 
+
 <p align="center">
     <img src="assets/gifs/boids.gif" width="700" alt="Demo">
 </p>
