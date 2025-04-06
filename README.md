@@ -23,13 +23,70 @@ With that said, here is the TL;DR: While this flocking behavior may seem complex
 
 By combining these rules, realistic swarm-like behavior emerges. Additionally, I’ve introduced the mouse position as a sort of "Predator." The Boids will actively avoid the mouse as they fly around, adding another layer of interaction to the simulation.
 
-## Features
+## Features 🚀
 
 - Real-time visualization of Boids movement
 - Configurable parameters for tuning flocking behavior
 - Object-oriented architecture for modularity and scalability
 - Smooth animations with SFML's graphics rendering
 
+## Mac OS Setup 💻
+### Prerequisites
+
+1. Ensure You Have Git Installed
+    - *Not Explaining This...*
+
+2. Ensure You Have The **SFML Libraries** Installed:
+    - Using Homebrew
+        ```bash
+        brew install sfml
+        ```
+
+    - Using ATP
+        ```bash
+        sudo apt update sudo apt install \
+        libxrandr-dev \
+        libxcursor-dev \
+        libxi-dev \
+        libudev-dev \
+        libflac-dev \
+        libvorbis-dev \ 
+        libgl1-mesa-dev \
+        libegl1-mesa-dev \
+        libdrm-dev \
+        libgbm-dev
+        ```
+
+    - From [official SFML website](https://www.sfml-dev.org/download/)
+
+3. Ensure You Have The **CMake** Installed:
+
+    - Using Homebrew
+        ```bash
+        brew install cmake
+        ```
+
+    - Using ATP
+        ```bash
+        sudo apt install cmake
+        ```
+
+### Build & Run
+
+1. **Build The Project**:
+    - In the root directory run:
+        ```bash
+        mkdir build
+        cd build
+        cmake ..
+        make
+        ```
+
+2. **Run The Application**
+    - Simply Execute:
+        ```bash
+        ./bin/main
+        ```
 
 # Contributions
 
